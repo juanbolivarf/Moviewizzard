@@ -1,2 +1,3 @@
 
-export const APP_NAME = "Movie Central";
+export const APP_NAME = "Moviewizzard";
+
