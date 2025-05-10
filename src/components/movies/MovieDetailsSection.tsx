@@ -1,15 +1,19 @@
 
+"use client";
+
 import Image from 'next/image';
 import type { Movie } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { CalendarDays, Clock, UserCircle, Video } from 'lucide-react';
 import { StarRating } from './StarRating';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface MovieDetailsSectionProps {
   movie: Movie;
 }
 
 export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
+  const { t } = useTranslation();
   const backdropHint = movie.genres.length > 0 ? movie.genres[0].toLowerCase() + " scene" : "movie scene";
   const posterHint = movie.genres.length > 0 ? movie.genres[0].toLowerCase() + " poster" : "movie poster";
 
@@ -58,9 +62,9 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
           <div className="mb-6 space-y-3">
             <div className="flex items-center text-lg">
               <CalendarDays className="h-5 w-5 mr-2 text-muted-foreground" />
-              <span className="font-medium">Release Date:</span>
+              <span className="font-medium">{t('movieDetails.releaseDate')}</span>
               <span className="ml-2 text-foreground">
-                {new Date(movie.releaseDate).toLocaleDateString('en-US', {
+                {new Date(movie.releaseDate).toLocaleDateString('en-US', { // Date format might need localization too
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -70,14 +74,14 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
             {movie.director && (
               <div className="flex items-center text-lg">
                 <Video className="h-5 w-5 mr-2 text-muted-foreground" />
-                <span className="font-medium">Director:</span>
+                <span className="font-medium">{t('movieDetails.director')}</span>
                 <span className="ml-2 text-foreground">{movie.director}</span>
               </div>
             )}
             {movie.duration && (
               <div className="flex items-center text-lg">
                 <Clock className="h-5 w-5 mr-2 text-muted-foreground" />
-                <span className="font-medium">Duration:</span>
+                <span className="font-medium">{t('movieDetails.duration')}</span>
                 <span className="ml-2 text-foreground">{movie.duration}</span>
               </div>
             )}
@@ -89,12 +93,12 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
             )}
           </div>
 
-          <h2 className="text-2xl font-semibold mb-3 text-primary">Synopsis</h2>
+          <h2 className="text-2xl font-semibold mb-3 text-primary">{t('movieDetails.synopsis')}</h2>
           <p className="text-foreground/90 leading-relaxed mb-6">{movie.synopsis}</p>
 
           {movie.cast && movie.cast.length > 0 && (
             <>
-              <h2 className="text-2xl font-semibold mb-4 text-primary">Cast</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-primary">{t('movieDetails.cast')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {movie.cast.map((actor) => (
                   <div key={actor.name} className="flex items-center p-3 bg-card rounded-lg shadow">
@@ -122,7 +126,7 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
           
           {movie.images && movie.images.length > 0 && (
             <>
-              <h2 className="text-2xl font-semibold mt-8 mb-4 text-primary">Gallery</h2>
+              <h2 className="text-2xl font-semibold mt-8 mb-4 text-primary">{t('movieDetails.gallery')}</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {movie.images.map((src, index) => (
                   <div key={index} className="rounded-lg overflow-hidden shadow-md">

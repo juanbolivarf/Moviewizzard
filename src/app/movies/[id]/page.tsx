@@ -1,11 +1,11 @@
 
-"use client"; // Needs to be client component for state management of reviews
+"use client"; 
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import type { Movie, Review } from '@/lib/types';
 import { getMovieById } from '@/data/movies';
-import { getReviewsByMovieId, addReview as addMockReview } from '@/data/reviews';
+import { getReviewsByMovieId } from '@/data/reviews'; // Removed addMockReview as it's unused
 import { MovieDetailsSection } from '@/components/movies/MovieDetailsSection';
 import { ReviewList } from '@/components/movies/ReviewList';
 import { ReviewForm } from '@/components/movies/ReviewForm';
@@ -16,51 +16,59 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useTranslation } from '@/hooks/useTranslation';
+import { APP_NAME } from '@/app/constants';
 
 
 export default function MovieDetailPage() {
   const params = useParams();
   const movieId = params.id as string;
+  const { t, isLoading: isLoadingTranslations, currentLocale } = useTranslation();
 
-  const [movie, setMovie] = useState<Movie | null | undefined>(undefined); // undefined for loading, null for not found
+  const [movie, setMovie] = useState<Movie | null | undefined>(undefined); 
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMovieData, setIsLoadingMovieData] = useState(true);
 
   useEffect(() => {
     if (movieId) {
-      setIsLoading(true);
-      // Simulate API calls
+      setIsLoadingMovieData(true);
       setTimeout(() => {
         const foundMovie = getMovieById(movieId);
         setMovie(foundMovie);
         if (foundMovie) {
           setReviews(getReviewsByMovieId(movieId));
         }
-        setIsLoading(false);
+        setIsLoadingMovieData(false);
       }, 300);
     }
   }, [movieId]);
+
+  useEffect(() => {
+    if (!isLoadingTranslations && movie) {
+      document.title = t('documentTitles.movieDetail', { movieTitle: movie.title, appName: t('appName') });
+    } else if (!isLoadingTranslations && movie === null) {
+      document.title = t('movieDetails.movieNotFoundTitle') + ` | ${t('appName')}`;
+    }
+  }, [isLoadingTranslations, movie, t, currentLocale]);
 
   const handleReviewSubmit = (newReviewData: Omit<Review, 'id' | 'createdAt' | 'userAvatar' | 'movieId'>) => {
     if (movie) {
       const newReview: Review = {
         ...newReviewData,
         movieId: movie.id,
-        id: `r_new_${Date.now()}`, // Temporary ID for client-side update
+        id: `r_new_${Date.now()}`,
         createdAt: new Date().toISOString(),
         userAvatar: `https://picsum.photos/100/100?random=${Math.floor(Math.random() * 100)}`,
       };
-      // In a real app, you'd call addMockReview or an API here and update state based on response.
-      // For now, just update client-side state.
       setReviews(prevReviews => [newReview, ...prevReviews]); 
     }
   };
   
-  if (isLoading) {
+  if (isLoadingMovieData || isLoadingTranslations) {
     return (
       <div className="space-y-8">
-        <Skeleton className="h-10 w-32 mb-6" /> {/* Back button skeleton */}
-        <Skeleton className="h-96 w-full rounded-lg" /> {/* Backdrop skeleton */}
+        <Skeleton className="h-10 w-32 mb-6" /> 
+        <Skeleton className="h-96 w-full rounded-lg" /> 
         <div className="grid md:grid-cols-12 gap-8">
           <div className="md:col-span-4 lg:col-span-3">
             <Skeleton className="w-full aspect-[2/3] rounded-lg" />
@@ -87,27 +95,27 @@ export default function MovieDetailPage() {
     return (
       <div className="text-center py-10">
         <Alert variant="destructive" className="max-w-md mx-auto">
-          <AlertTitle>Movie Not Found</AlertTitle>
+          <AlertTitle>{t('movieDetails.movieNotFoundTitle')}</AlertTitle>
           <AlertDescription>
-            The movie you are looking for does not exist or could not be loaded.
+            {t('movieDetails.movieNotFoundDescription')}
           </AlertDescription>
         </Alert>
          <Button asChild variant="link" className="mt-6">
             <Link href="/">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Go back to Homepage
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t('movieDetails.goBackHome')}
             </Link>
           </Button>
       </div>
     );
   }
   
-  if (!movie) return null; // Should be covered by isLoading or movie === null
+  if (!movie) return null; 
 
   return (
     <div className="max-w-6xl mx-auto">
       <Button asChild variant="outline" className="mb-6 group">
         <Link href="/">
-          <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" /> Back to Movies
+          <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" /> {t('movieDetails.backToMovies')}
         </Link>
       </Button>
 
@@ -117,7 +125,7 @@ export default function MovieDetailPage() {
 
       <div className="grid lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
-          <h2 className="text-3xl font-semibold mb-6 text-primary">Reviews & Opinions</h2>
+          <h2 className="text-3xl font-semibold mb-6 text-primary">{t('movieDetails.reviewsAndOpinions')}</h2>
           <ReviewForm movieId={movie.id} onReviewSubmit={handleReviewSubmit} />
           <Separator className="my-8" />
           <ReviewList reviews={reviews} />
@@ -131,4 +139,3 @@ export default function MovieDetailPage() {
     </div>
   );
 }
-

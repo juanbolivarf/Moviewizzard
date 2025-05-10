@@ -8,23 +8,34 @@ import { MovieList } from '@/components/movies/MovieList';
 import { MovieSearch } from '@/components/movies/MovieSearch';
 import { MovieFilter } from '@/components/movies/MovieFilter';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useTranslation } from '@/hooks/useTranslation';
+import { APP_NAME } from './constants'; // For dynamic title
 
 export default function HomePage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMovies, setIsLoadingMovies] = useState(true);
   const [filters, setFilters] = useState<MovieFilters>({
     sortBy: 'releaseDateDesc',
   });
+
+  const { t, isLoading: isLoadingTranslations, currentLocale } = useTranslation();
 
   useEffect(() => {
     // Simulate API call
     setTimeout(() => {
       setMovies(mockMovies);
-      setGenres(getAllGenres());
-      setIsLoading(false);
+      setGenres(getAllGenres()); // Assuming genres are not language-dependent for now
+      setIsLoadingMovies(false);
     }, 500); 
   }, []);
+
+  useEffect(() => {
+    if (!isLoadingTranslations) {
+      document.title = t('documentTitles.home', { appName: t('appName') });
+    }
+  }, [isLoadingTranslations, t, currentLocale]);
+
 
   const handleFiltersChange = (newFilters: Partial<MovieFilters>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
@@ -69,7 +80,7 @@ export default function HomePage() {
     return processedMovies;
   }, [movies, filters]);
 
-  if (isLoading) {
+  if (isLoadingMovies || isLoadingTranslations) {
     return (
       <div className="space-y-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">

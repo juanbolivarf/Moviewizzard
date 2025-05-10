@@ -1,16 +1,22 @@
 
+"use client"; // Now a client component due to useTranslation and locale-specific date formatting
+
 import type { Review } from '@/lib/types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { StarRating } from './StarRating';
 import { formatDistanceToNow } from 'date-fns';
+import { enUS, es } from 'date-fns/locale';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ReviewItemProps {
   review: Review;
 }
 
 export function ReviewItem({ review }: ReviewItemProps) {
-  const timeAgo = formatDistanceToNow(new Date(review.createdAt), { addSuffix: true });
+  const { currentLocale } = useTranslation();
+  const dateFnsLocale = currentLocale === 'es' ? es : enUS;
+  const timeAgo = formatDistanceToNow(new Date(review.createdAt), { addSuffix: true, locale: dateFnsLocale });
 
   return (
     <Card className="mb-4 shadow-sm">

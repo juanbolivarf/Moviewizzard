@@ -1,0 +1,70 @@
+
+{
+  "appName": "Moviewizzard",
+  "toggleLanguage": "Español",
+  "footer": {
+    "copyright": "© {year} {appName}. All rights reserved."
+  },
+  "header": {
+    "appName": "Moviewizzard"
+  },
+  "movieSearch": {
+    "placeholder": "Search movies..."
+  },
+  "movieFilter": {
+    "genre": "Genre",
+    "sortBy": "Sort By",
+    "allGenres": "All Genres",
+    "releaseDateDesc": "Release Date (Newest)",
+    "releaseDateAsc": "Release Date (Oldest)",
+    "titleAsc": "Title (A-Z)",
+    "titleDesc": "Title (Z-A)",
+    "ratingDesc": "Rating (Highest)",
+    "ratingAsc": "Rating (Lowest)"
+  },
+  "movieList": {
+    "noMoviesFound": "No movies found matching your criteria."
+  },
+  "movieDetails": {
+    "backToMovies": "Back to Movies",
+    "movieNotFoundTitle": "Movie Not Found",
+    "movieNotFoundDescription": "The movie you are looking for does not exist or could not be loaded.",
+    "goBackHome": "Go back to Homepage",
+    "synopsis": "Synopsis",
+    "cast": "Cast",
+    "gallery": "Gallery",
+    "reviewsAndOpinions": "Reviews & Opinions",
+    "releaseDate": "Release Date:",
+    "director": "Director:",
+    "duration": "Duration:"
+  },
+  "reviewForm": {
+    "writeReview": "Write a Review",
+    "yourName": "Your Name",
+    "yourRating": "Your Rating",
+    "yourReview": "Your Review",
+    "submit": "Submit Review",
+    "submitting": "Submitting Review...",
+    "successToastTitle": "Review submitted!",
+    "successToastDescription": "Thanks for your feedback.",
+    "errorToastTitle": "Error",
+    "errorToastDescription": "Failed to submit review."
+  },
+  "reviewList": {
+    "noReviews": "No reviews yet. Be the first to write one!"
+  },
+  "relatedMovies": {
+    "title": "You Might Also Like",
+    "loading": "Loading recommendations...",
+    "error": "Could not load recommendations at this time.",
+    "noRecommendations": "No specific recommendations found at this time."
+  },
+  "general": {
+    "loading": "Loading..."
+  },
+  "documentTitles": {
+    "home": "Home | {appName}",
+    "movieDetail": "{movieTitle} | {appName}",
+    "default": "{appName}"
+  }
+}

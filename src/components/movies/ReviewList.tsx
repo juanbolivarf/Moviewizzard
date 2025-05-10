@@ -1,14 +1,19 @@
 
+"use client";
+
 import type { Review } from '@/lib/types';
 import { ReviewItem } from './ReviewItem';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ReviewListProps {
   reviews: Review[];
 }
 
 export function ReviewList({ reviews }: ReviewListProps) {
+  const { t } = useTranslation();
+
   if (reviews.length === 0) {
-    return <p className="text-muted-foreground italic">No reviews yet. Be the first to write one!</p>;
+    return <p className="text-muted-foreground italic">{t('reviewList.noReviews')}</p>;
   }
 
   return (

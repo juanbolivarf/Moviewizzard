@@ -1,0 +1,70 @@
+
+{
+  "appName": "Moviewizzard",
+  "toggleLanguage": "English",
+  "footer": {
+    "copyright": "© {year} {appName}. Todos los derechos reservados."
+  },
+  "header": {
+    "appName": "Moviewizzard"
+  },
+  "movieSearch": {
+    "placeholder": "Buscar películas..."
+  },
+  "movieFilter": {
+    "genre": "Género",
+    "sortBy": "Ordenar por",
+    "allGenres": "Todos los géneros",
+    "releaseDateDesc": "Fecha de Estreno (Más Recientes)",
+    "releaseDateAsc": "Fecha de Estreno (Más Antiguos)",
+    "titleAsc": "Título (A-Z)",
+    "titleDesc": "Título (Z-A)",
+    "ratingDesc": "Calificación (Más Alta)",
+    "ratingAsc": "Calificación (Más Baja)"
+  },
+  "movieList": {
+    "noMoviesFound": "No se encontraron películas que coincidan con tus criterios."
+  },
+  "movieDetails": {
+    "backToMovies": "Volver a Películas",
+    "movieNotFoundTitle": "Película No Encontrada",
+    "movieNotFoundDescription": "La película que buscas no existe o no pudo ser cargada.",
+    "goBackHome": "Volver a la Página Principal",
+    "synopsis": "Sinopsis",
+    "cast": "Reparto",
+    "gallery": "Galería",
+    "reviewsAndOpinions": "Reseñas y Opiniones",
+    "releaseDate": "Fecha de Estreno:",
+    "director": "Director:",
+    "duration": "Duración:"
+  },
+  "reviewForm": {
+    "writeReview": "Escribe una Reseña",
+    "yourName": "Tu Nombre",
+    "yourRating": "Tu Calificación",
+    "yourReview": "Tu Reseña",
+    "submit": "Enviar Reseña",
+    "submitting": "Enviando Reseña...",
+    "successToastTitle": "¡Reseña enviada!",
+    "successToastDescription": "Gracias por tus comentarios.",
+    "errorToastTitle": "Error",
+    "errorToastDescription": "No se pudo enviar la reseña."
+  },
+  "reviewList": {
+    "noReviews": "Aún no hay reseñas. ¡Sé el primero en escribir una!"
+  },
+  "relatedMovies": {
+    "title": "También Te Podría Gustar",
+    "loading": "Cargando recomendaciones...",
+    "error": "No se pudieron cargar las recomendaciones en este momento.",
+    "noRecommendations": "No se encontraron recomendaciones específicas en este momento."
+  },
+  "general": {
+    "loading": "Cargando..."
+  },
+  "documentTitles": {
+    "home": "Inicio | {appName}",
+    "movieDetail": "{movieTitle} | {appName}",
+    "default": "{appName}"
+  }
+}

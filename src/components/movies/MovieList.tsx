@@ -1,14 +1,18 @@
 
+"use client";
 import type { Movie } from '@/lib/types';
 import { MovieCard } from './MovieCard';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface MovieListProps {
   movies: Movie[];
 }
 
 export function MovieList({ movies }: MovieListProps) {
+  const { t } = useTranslation();
+
   if (movies.length === 0) {
-    return <p className="text-center text-muted-foreground py-8">No movies found matching your criteria.</p>;
+    return <p className="text-center text-muted-foreground py-8">{t('movieList.noMoviesFound')}</p>;
   }
 
   return (
