@@ -11,6 +11,11 @@ interface MovieCardProps {
 }
 
 export function MovieCard({ movie }: MovieCardProps) {
+  const posterHint = movie.title.toLowerCase().includes("godfather") ? "mafia movie" :
+                     movie.title.toLowerCase().includes("dark knight") ? "superhero movie" :
+                     movie.title.toLowerCase().includes("pulp fiction") ? "crime film" :
+                     movie.genres.length > 0 ? movie.genres[0].toLowerCase() : "movie poster";
+
   return (
     <Link href={`/movies/${movie.id}`} className="group block">
       <Card className="h-full flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg">
@@ -21,7 +26,7 @@ export function MovieCard({ movie }: MovieCardProps) {
             width={400}
             height={600}
             className="w-full h-auto object-cover aspect-[2/3] group-hover:scale-105 transition-transform duration-300"
-            data-ai-hint="movie poster"
+            data-ai-hint={posterHint}
           />
         </CardHeader>
         <CardContent className="p-4 flex-grow">

@@ -10,6 +10,9 @@ interface MovieDetailsSectionProps {
 }
 
 export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
+  const backdropHint = movie.genres.length > 0 ? movie.genres[0].toLowerCase() + " scene" : "movie scene";
+  const posterHint = movie.genres.length > 0 ? movie.genres[0].toLowerCase() + " poster" : "movie poster";
+
   return (
     <div className="mb-8">
       <div className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-lg mb-8">
@@ -20,7 +23,7 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
             layout="fill"
             objectFit="cover"
             className="opacity-50"
-            data-ai-hint="movie scene"
+            data-ai-hint={backdropHint.substring(0,20)} // Keep hint short
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-50" />
@@ -48,7 +51,7 @@ export function MovieDetailsSection({ movie }: MovieDetailsSectionProps) {
             width={300}
             height={450}
             className="rounded-lg shadow-xl w-full"
-            data-ai-hint="movie poster"
+            data-ai-hint={posterHint.substring(0,20)} // Keep hint short
           />
         </div>
         <div className="md:col-span-8 lg:col-span-9">
