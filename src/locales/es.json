@@ -3,7 +3,7 @@
   "appName": "Moviewizzard",
   "toggleLanguage": "English",
   "footer": {
-    "copyright": "© {year} {appName}. Todos los derechos reservados."
+    "copyright": "© {year} {appName}. Todos los derechos reservados. Hecho por Juan Bolivar Ferrer."
   },
   "header": {
     "appName": "Moviewizzard"
@@ -68,3 +68,4 @@
     "default": "{appName}"
   }
 }
+
