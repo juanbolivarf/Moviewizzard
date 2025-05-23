@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
+
   children: React.ReactNode;
 }>) {
   return (
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body 
         className={`font-sans antialiased min-h-screen bg-background text-foreground flex flex-col`}
       >
+ <link rel="stylesheet" href="/styles.css"></link>
         <AppProviders>
           <DynamicTitle />
           <Header />
