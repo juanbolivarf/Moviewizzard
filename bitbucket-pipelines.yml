@@ -1,0 +1,23 @@
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        name: Build and Test
+        script:
+          - npm install
+          - npm run build
+        artifacts:
+          - dist/**
+    - step:
+        name: Deploy to Production
+        deployment: production
+        script:
+          - pipe: atlassian/bitbucket-pipe-bitbucket-pipe:0.7.0
+            variables:
+              BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+              REPOSITORY: $BITBUCKET_REPO_OWNER/$BITBUCKET_REPO_SLUG
+              COMMIT_MESSAGE: "Deploy to production"
+              BRANCH: main
+              FILES: "dist/**"
